@@ -19,97 +19,97 @@
     </link>
 
     <!-- Joint connecting base_link and base_footprint -->
-    <!-- TO DO: Set correct joint type -->
-    <joint name="base_link_plate_joint" type="">
-        <!-- TO DO: Define axis (if needed) -->
-        <!-- TO DO: Define origin -->
-        <!-- TO DO: Define parent -->
-        <!-- TO DO: Define child -->
+    <joint name="base_link_plate_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="base_footprint" />
+        <child link="base_link" />
     </joint>
 
     <!-- Base link -->
     <link name="base_link">
-        <!-- TO DO: Add visual tag -->
-        <!-- TO DO: Add collision tag -->
-        <!-- TO DO: Add inertial tag -->
+        <visual>
+            <geometry>
+                <cylinder length="0.3" radius="0.25" /> 
+            </geometry>
+            <material name="blue">
+                <color rgba="0 0 1 1"/>
+            </material>
+        </visual>
+        <collision>
+            <geometry>
+                <cylinder length="0.3" radius="0.25" /> 
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="18" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <!-- Izz​=1/2mr**2 Ixx = Iyy = 1/12m(3r**2 + h**2)-->
+            <inertia ixx="0.41625" ixy="0" ixz="0" iyy="0.41625" iyz="0" izz="0.5625" />
+        </inertial>
     </link>
 
     <!-- Left wheel link -->
     <link name="left_wheel">
-        <!-- TO DO: Add visual tag -->
-        <!-- TO DO: Add collision tag -->
-        <!-- TO DO: Add inertial tag -->
+         <visual>
+            <origin rpy="1.5707 0 0" xyz="0 0.05 0" />
+            <geometry>
+                <cylinder length="0.05" radius="0.025" /> 
+            </geometry>
+             <material name="red">
+                <color rgba="1 0 0 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="1.5707 0 0" xyz="0 0.05 0" />
+            <geometry>
+                <cylinder length="0.05" radius="0.025" /> 
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="1.5" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <!-- Izz​=1/2mr**2 Ixx = Iyy = 1/12m(3r**2 + h**2)-->
+            <inertia ixx="0.0005" ixy="0" ixz="0" iyy="0.0005" iyz="0" izz="0.0004" />
+        </inertial>
     </link>
 
     <!-- Joint connecting base_link and left_wheel -->
-    <!-- TO DO: Set correct joint type -->
-    <joint name="base_link_left_wheel_joint" type="">
-        <!-- TO DO: Define axis (if needed) -->
-        <!-- TO DO: Define origin -->
-        <!-- TO DO: Define parent -->
-        <!-- TO DO: Define child -->
+    <joint name="base_link_left_wheel_joint" type="continuous">
+        <axis xyz="0 1 0" />
+        <origin rpy="0 0 0" xyz="0 0.2 -0.15" />
+        <parent link="base_link" />
+        <child link="left_wheel" />
     </joint>
 
     <!-- Right wheel link -->
     <link name="right_wheel">
-        <!-- TO DO: Add visual tag -->
-        <!-- TO DO: Add collision tag -->
-        <!-- TO DO: Add inertial tag -->
+        <visual>
+            <origin rpy="1.5707 0 0" xyz="0 -0.05 0" />
+            <geometry>
+                <cylinder length="0.05" radius="0.025" /> 
+            </geometry>
+             <material name="red">
+                <color rgba="1 0 0 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="1.5707 0 0" xyz="0 -0.05 0" />
+            <geometry>
+                <cylinder length="0.05" radius="0.025" /> 
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="1.5" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <!-- Izz​=1/2mr**2 Ixx = Iyy = 1/12m(3r**2 + h**2)-->
+            <inertia ixx="0.0005" ixy="0" ixz="0" iyy="0.0005" iyz="0" izz="0.0004" />
+        </inertial>
     </link>
-
-    <!-- Joint connecting base_link and right_wheel -->
-    <!-- TO DO: Set correct joint type -->
-    <joint name="base_link_right_wheel_joint" type="">
-        <!-- TO DO: Define axis (if needed) -->
-        <!-- TO DO: Define origin -->
-        <!-- TO DO: Define parent -->
-        <!-- TO DO: Define child -->
+     <!-- Joint connecting base_link and right_wheel -->
+    <joint name="base_link_right_wheel_joint" type="continuous">
+        <axis xyz="0 1 0" />
+        <origin rpy="0 0 0" xyz="0 -0.2 -0.15" />
+        <parent link="base_link" />
+        <child link="right_wheel" />
     </joint>
-
-    <!-- Front caster -->
-    <link name="front_caster">
-        <!-- TO DO: Add visual tag -->
-        <!-- TO DO: Add collision tag -->
-        <!-- TO DO: Add inertial tag -->
-    </link>
-
-    <!-- Joint connecting base_link and front_caster -->
-    <!-- TO DO: Set correct joint type -->
-    <joint name="base_link_front_caster_joint" type="">
-        <!-- TO DO: Define axis (if needed) -->
-        <!-- TO DO: Define origin -->
-        <!-- TO DO: Define parent -->
-        <!-- TO DO: Define child -->
-    </joint>
-
-    <!-- Back caster -->
-    <link name="back_caster">
-        <!-- TO DO: Add visual tag -->
-        <!-- TO DO: Add collision tag -->
-        <!-- TO DO: Add inertial tag -->
-    </link>
-
-    <!-- Joint connecting base_link and back_caster -->
-    <!-- TO DO: Set correct joint type -->
-    <joint name="base_link_back_caster_joint" type="">
-        <!-- TO DO: Define axis (if needed) -->
-        <!-- TO DO: Define origin -->
-        <!-- TO DO: Define parent -->
-        <!-- TO DO: Define child -->
-    </joint>
-
-    <!-- Link representing the front laser scanner -->
-    <!--For this robot, the laser is not visible, so we won't define a body for it. -->
-    <link name="front_laser">
-    </link>
-
-    <!-- Joint connecting base_link and front_laser -->
-    <!-- TO DO: Set correct joint type -->
-    <joint name="base_link_front_laser_joint" type="">
-        <!-- TO DO: Define axis (if needed) -->
-        <!-- TO DO: Define origin -->
-        <!-- TO DO: Define parent -->
-        <!-- TO DO: Define child -->
-    </joint>
-
 </robot>
