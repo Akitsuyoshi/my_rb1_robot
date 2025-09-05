@@ -112,4 +112,87 @@
         <parent link="base_link" />
         <child link="right_wheel" />
     </joint>
+
+     <!-- Front caster -->
+    <link name="front_caster">
+        <visual>
+            <origin rpy="1.5707 0 0" xyz="0.03 0 0" />
+            <geometry>
+                <cylinder length="0.03" radius="0.025" /> 
+            </geometry>
+            <material name="gray">
+                <color rgba="0.40 0.40 0.40 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="1.5707 0 0" xyz="0.03 0 0" />
+            <geometry>
+                <cylinder length="0.03" radius="0.025" /> 
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <!-- Izz​=1/2mr**2 Ixx = Iyy = 1/12m(3r**2 + h**2)-->
+            <inertia ixx="0.0002" ixy="0" ixz="0" iyy="0.0002" iyz="0" izz="0.0003" />
+        </inertial>
+    </link>
+
+    <!-- Joint connecting base_link and front_caster -->
+    <joint name="base_link_front_caster_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="0.1 0 -0.15" />
+        <parent link="base_link" />
+        <child link="front_caster" />
+        <joint_properties friction="0" />
+    </joint>
+
+    <!-- Back caster -->
+    <link name="back_caster">
+        <visual>
+            <origin rpy="1.5707 0 0" xyz="-0.03 0 0" />
+            <geometry>
+                <cylinder length="0.03" radius="0.025" /> 
+            </geometry>
+            <material name="gray">
+                <color rgba="0.40 0.40 0.40 1"/>
+            </material>
+        </visual>
+        <collision>
+            <origin rpy="1.5707 0 0" xyz="-0.03 0 0" />
+            <geometry>
+                <cylinder length="0.03" radius="0.025" /> 
+            </geometry>
+        </collision>
+        <inertial>
+            <mass value="1" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <!-- Izz​=1/2mr**2 Ixx = Iyy = 1/12m(3r**2 + h**2)-->
+            <inertia ixx="0.0002" ixy="0" ixz="0" iyy="0.0002" iyz="0" izz="0.0003" />
+        </inertial>
+    </link>
+
+    <!-- Joint connecting base_link and back_caster -->
+    <joint name="base_link_back_caster_joint" type="fixed">
+        <origin rpy="0 0 0" xyz="-0.1 0 -0.15" />
+        <parent link="base_link" />
+        <child link="back_caster" />
+        <joint_properties friction="0" />
+    </joint>
+
+    <!-- Link representing the front laser scanner -->
+    <!--For this robot, the laser is not visible, so we won't define a body for it. -->
+    <link name="front_laser">
+         <inertial>
+            <mass value="3" />
+            <origin xyz="0 0 0" rpy="0 0 0" />
+             <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+        </inertial>
+    </link>
+
+    <!-- Joint connecting base_link and front_laser -->
+    <joint name="base_link_front_laser_joint" type="fixed">
+        <origin rpy="1.5707 0 0" xyz="0.25 0 0.075" />
+        <parent link="base_link" />
+        <child link="front_laser" />
+    </joint>
 </robot>
