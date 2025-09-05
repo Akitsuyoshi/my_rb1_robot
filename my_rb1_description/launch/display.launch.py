@@ -37,6 +37,11 @@ def generate_launch_description():
                      'robot_description': ParameterValue(Command(['xacro ', robot_desc_path]), value_type=str)}]
     )
 
+    # Load RViz Configuration File #
+    rviz_config_file = "config.rviz"
+    rviz_config_path = os.path.join(package_directory, "rviz", rviz_config_file)
+    print("RViz Config Loaded !")
+
     # RViz2 Launch Configuration (RViz) #
     rviz_node = Node(
         package='rviz2',
@@ -45,6 +50,7 @@ def generate_launch_description():
         output='screen',
         emulate_tty=True,
         parameters=[{'use_sim_time': True}],
+        arguments=['-d', rviz_config_path],
     )
 
     # Create and Return the Launch Description Object #
