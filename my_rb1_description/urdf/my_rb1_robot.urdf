@@ -269,7 +269,7 @@
             name="ignition::gazebo::systems::DiffDrive">
             <left_joint>base_link_left_wheel_joint</left_joint>
             <right_joint>base_link_right_wheel_joint</right_joint>
-            <wheel_separation>0.5</wheel_separation>
+            <wheel_separation>0.4</wheel_separation>
             <wheel_radius>0.025</wheel_radius>
             <odom_publish_frequency>20</odom_publish_frequency>
             <topic>cmd_vel</topic>
