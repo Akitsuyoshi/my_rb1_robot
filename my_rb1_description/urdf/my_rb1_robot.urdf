@@ -118,7 +118,7 @@
     <!-- Left wheel link -->
     <link name="left_wheel">
          <visual>
-            <origin rpy="1.5707 0 0" xyz="0 0.05 0" />
+            <origin rpy="1.5707 0 0" xyz="0 0 0" />
             <geometry>
                 <cylinder length="0.05" radius="0.025" /> 
             </geometry>
@@ -127,7 +127,7 @@
             </material>
         </visual>
         <collision>
-            <origin rpy="1.5707 0 0" xyz="0 0.05 0" />
+            <origin rpy="1.5707 0 0" xyz="0 0 0" />
             <geometry>
                 <cylinder length="0.05" radius="0.025" /> 
             </geometry>
@@ -151,7 +151,7 @@
     <!-- Right wheel link -->
     <link name="right_wheel">
         <visual>
-            <origin rpy="1.5707 0 0" xyz="0 -0.05 0" />
+            <origin rpy="1.5707 0 0" xyz="0 0 0" />
             <geometry>
                 <cylinder length="0.05" radius="0.025" /> 
             </geometry>
@@ -160,7 +160,7 @@
             </material>
         </visual>
         <collision>
-            <origin rpy="1.5707 0 0" xyz="0 -0.05 0" />
+            <origin rpy="1.5707 0 0" xyz="0 0 0" />
             <geometry>
                 <cylinder length="0.05" radius="0.025" /> 
             </geometry>
@@ -183,7 +183,7 @@
      <!-- Front caster -->
     <link name="front_caster">
         <visual>
-            <origin rpy="1.5707 0 0" xyz="0.03 0 0" />
+            <origin xyz="0 0 0" />
             <geometry>
                 <sphere radius="0.025" /> 
             </geometry>
@@ -192,7 +192,7 @@
             </material>
         </visual>
         <collision>
-            <origin rpy="1.5707 0 0" xyz="0.03 0 0" />
+            <origin xyz="0 0 0" />
             <geometry>
                 <sphere radius="0.025" /> 
             </geometry>
@@ -216,7 +216,7 @@
     <!-- Back caster -->
     <link name="back_caster">
         <visual>
-            <origin rpy="1.5707 0 0" xyz="-0.03 0 0" />
+            <origin xyz="0 0 0" />
             <geometry>
                 <sphere radius="0.025" /> 
             </geometry>
@@ -225,7 +225,7 @@
             </material>
         </visual>
         <collision>
-            <origin rpy="1.5707 0 0" xyz="-0.03 0 0" />
+            <origin xyz="0 0 0" />
             <geometry>
                 <sphere radius="0.025" /> 
             </geometry>
