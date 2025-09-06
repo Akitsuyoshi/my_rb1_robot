@@ -258,7 +258,7 @@
 
     <!-- Joint connecting base_link and front_laser -->
     <joint name="base_link_front_laser_joint" type="fixed">
-        <origin rpy="1.5707 0 0" xyz="0.25 0 0.075" />
+        <origin rpy="3.14159 0 0" xyz="0.25 0 0.075" />
         <parent link="base_link" />
         <child link="front_laser" />
     </joint>
