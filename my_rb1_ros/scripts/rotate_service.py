@@ -1,16 +1,55 @@
 #! /usr/bin/env python
 
 import rospy
+import math
+from tf.transformations import euler_from_quaternion
 from my_rb1_ros.srv import Rotate, RotateResponse 
 from geometry_msgs.msg import Twist
+from nav_msgs.msg import Odometry
 
-def my_callback(request):
+
+yaw = 0.0
+
+# Converts quanternion(x, y, z, w) to euler angles(roll, pitch, yaw) to get yaw
+# Reference: https://www.theconstruct.ai/ros-qa-135-how-to-rotate-a-robot-to-a-desired-heading-using-feedback-from-odometry/
+def odom_callback(msg):
+    global yaw
+    orient = msg.pose.pose.orientation
+    orients = [orient.x, orient.y, orient.z, orient.w]
+    (_, _, yaw) = euler_from_quaternion(orients)
+
+def normalize_rad(rad):
+    # arctan(y, x) gives us normalized angle between -pi and pi, with y and x cordinates
+    return math.atan2(math.sin(rad), math.cos(rad))
+
+def rotate_callback(request):
+    global yaw
     rospy.loginfo("Service Requested")
+    my_pub =  rospy.Publisher('/cmd_vel', Twist, queue_size=1)
+    rate = rospy.Rate(10)
+    target_rad = normalize_rad(yaw + math.radians(request.request))
+
+    move = Twist()
+    speed = 0.4
+    move.angular.z = speed if request.request > 0 else -speed
+    while not rospy.is_shutdown():
+        diff = normalize_rad(target_rad - yaw)
+        # 1.71 degree tolerance
+        if abs(diff) < 0.03:
+            break
+        my_pub.publish(move)
+        rate.sleep()
+
+    move.angular.z = 0.0
+    my_pub.publish(move)
+    response = RotateResponse()
+    response.result = f"The robot rotated {request.request} degrees"
     rospy.loginfo("Service Completed")
-    return RotateResponse() # the service Response class, in this case EmptyResponse
+    return response
 
-rospy.init_node('rotate_service_server') 
-my_service = rospy.Service('/rotate_robot', Rotate , my_callback) # create the Service called move_bb8_in_circle with the defined callback
 
+rospy.init_node('rotate_service_server')
+rospy.Subscriber('/odom', Odometry, odom_callback)
+rospy.Service('/rotate_robot', Rotate, rotate_callback)
 rospy.loginfo("Service Ready")
 rospy.spin() # mantain the service open.
