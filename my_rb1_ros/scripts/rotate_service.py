@@ -28,13 +28,13 @@ def rotate_callback(request):
     my_pub =  rospy.Publisher('/cmd_vel', Twist, queue_size=1)
     rate = rospy.Rate(10)
 
-    target_rad = math.radians(request.request)
+    target_rad = math.radians(request.degrees)
     last_yaw = yaw
     rotated = 0.0
 
     move = Twist()
     speed = 0.4
-    move.angular.z = speed if request.request > 0 else -speed
+    move.angular.z = speed if request.degrees > 0 else -speed
     while not rospy.is_shutdown():
         delt = normalize_rad(yaw - last_yaw)
         rotated += delt
@@ -47,7 +47,7 @@ def rotate_callback(request):
     move.angular.z = 0.0
     my_pub.publish(move)
     response = RotateResponse()
-    response.result = f"The robot rotated {request.request} degrees"
+    response.result = f"The robot rotated {request.degrees} degrees"
     rospy.loginfo("Service Completed")
     return response
 
