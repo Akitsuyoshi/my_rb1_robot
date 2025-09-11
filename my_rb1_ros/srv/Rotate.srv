@@ -1,0 +1,3 @@
+int32 request    # the number of degrees to rotate
+---
+string result      # it shows if the rotation has been completed successfully or not
