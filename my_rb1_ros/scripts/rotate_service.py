@@ -27,15 +27,19 @@ def rotate_callback(request):
     rospy.loginfo("Service Requested")
     my_pub =  rospy.Publisher('/cmd_vel', Twist, queue_size=1)
     rate = rospy.Rate(10)
-    target_rad = normalize_rad(yaw + math.radians(request.request))
+
+    target_rad = math.radians(request.request)
+    last_yaw = yaw
+    rotated = 0.0
 
     move = Twist()
     speed = 0.4
     move.angular.z = speed if request.request > 0 else -speed
     while not rospy.is_shutdown():
-        diff = normalize_rad(target_rad - yaw)
-        # 1.71 degree tolerance
-        if abs(diff) < 0.03:
+        delt = normalize_rad(yaw - last_yaw)
+        rotated += delt
+        last_yaw = yaw
+        if abs(rotated) >= abs(target_rad) - math.radians(1):
             break
         my_pub.publish(move)
         rate.sleep()
