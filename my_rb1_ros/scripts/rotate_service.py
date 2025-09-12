@@ -26,7 +26,7 @@ def rotate_callback(request):
     global yaw
     rospy.loginfo("Service Requested")
     my_pub =  rospy.Publisher('/cmd_vel', Twist, queue_size=1)
-    rate = rospy.Rate(20)
+    rate = rospy.Rate(10)
 
     target_rad = math.radians(request.degrees)
     last_yaw = yaw
@@ -49,11 +49,9 @@ def rotate_callback(request):
         my_pub.publish(move)
         rate.sleep()
 
-    # publish mutiple to stop drift
     move.angular.z = 0.0
-    for _ in range(20):
-        my_pub.publish(move)
-        rate.sleep()
+    my_pub.publish(move)
+    rate.sleep()
     response = RotateResponse()
     response.result = f"The robot rotated {request.degrees} degrees"
     rospy.loginfo("Service Completed")

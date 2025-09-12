@@ -7,8 +7,8 @@
 
     <!-- Gazebo friction and material properties for left_wheel -->
     <gazebo reference="left_wheel">
-        <mu1>1.0</mu1>
-        <mu2>1.0</mu2>
+        <mu1>1.2</mu1>
+        <mu2>1.2</mu2>
         <kp>10000000.0</kp>
         <kd>1.0</kd>
         <fdir1>1 0 0</fdir1>
@@ -17,8 +17,8 @@
 
     <!-- Gazebo friction and material properties for right_wheel -->
     <gazebo reference="right_wheel">
-        <mu1>1.0</mu1>
-        <mu2>1.0</mu2>
+        <mu1>1.2</mu1>
+        <mu2>1.2</mu2>
         <kp>10000000.0</kp>
         <kd>1.0</kd>
         <fdir1>1 0 0</fdir1>
@@ -123,7 +123,7 @@
         <origin rpy="0 0 0" xyz="0 0.2 -0.15" />
         <parent link="base_link" />
         <child link="left_wheel" />
-        <dynamics damping="0.2" friction="0.002" />
+        <dynamics damping="0.0005" friction="0.0" />
     </joint>
 
     <!-- Right wheel link -->
@@ -156,7 +156,7 @@
         <origin rpy="0 0 0" xyz="0 -0.2 -0.15" />
         <parent link="base_link" />
         <child link="right_wheel" />
-        <dynamics damping="0.2" friction="0.002" />
+        <dynamics damping="0.0005" friction="0.0" />
     </joint>
 
      <!-- Front caster -->
@@ -189,7 +189,6 @@
         <origin rpy="0 0 0" xyz="0.1 0 -0.15" />
         <parent link="base_link" />
         <child link="front_caster" />
-        <joint_properties friction="0" />
     </joint>
 
     <!-- Back caster -->
@@ -222,7 +221,6 @@
         <origin rpy="0 0 0" xyz="-0.1 0 -0.15" />
         <parent link="base_link" />
         <child link="back_caster" />
-        <joint_properties friction="0" />
     </joint>
 
     <!-- Link representing the front laser scanner -->
