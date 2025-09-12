@@ -7,8 +7,8 @@
 
     <!-- Gazebo friction and material properties for left_wheel -->
     <gazebo reference="left_wheel">
-        <mu1>0.9</mu1>
-        <mu2>0.5</mu2>
+        <mu1>1.0</mu1>
+        <mu2>1.0</mu2>
         <kp>10000000.0</kp>
         <kd>1.0</kd>
         <fdir1>1 0 0</fdir1>
@@ -17,8 +17,8 @@
 
     <!-- Gazebo friction and material properties for right_wheel -->
     <gazebo reference="right_wheel">
-        <mu1>0.9</mu1>
-        <mu2>0.5</mu2>
+        <mu1>1.0</mu1>
+        <mu2>1.0</mu2>
         <kp>10000000.0</kp>
         <kd>1.0</kd>
         <fdir1>1 0 0</fdir1>
@@ -27,8 +27,8 @@
 
     <!-- Gazebo friction and material properties for front_caster -->
     <gazebo reference="front_caster">
-        <mu1>0.0</mu1>
-        <mu2>0.0</mu2>
+        <mu1>0.01</mu1>
+        <mu2>0.01</mu2>
         <kp>10000000.0</kp>
         <kd>100.0</kd>
         <fdir1>0 0 1</fdir1>
@@ -37,8 +37,8 @@
 
     <!-- Gazebo friction and material properties for back_caster -->
     <gazebo reference="back_caster">
-        <mu1>0.0</mu1>
-        <mu2>0.0</mu2>
+        <mu1>0.01</mu1>
+        <mu2>0.01</mu2>
         <kp>10000000.0</kp>
         <kd>100.0</kd>
         <fdir1>0 0 1</fdir1>
@@ -123,6 +123,7 @@
         <origin rpy="0 0 0" xyz="0 0.2 -0.15" />
         <parent link="base_link" />
         <child link="left_wheel" />
+        <dynamics damping="0.2" friction="0.002" />
     </joint>
 
     <!-- Right wheel link -->
@@ -155,6 +156,7 @@
         <origin rpy="0 0 0" xyz="0 -0.2 -0.15" />
         <parent link="base_link" />
         <child link="right_wheel" />
+        <dynamics damping="0.2" friction="0.002" />
     </joint>
 
      <!-- Front caster -->

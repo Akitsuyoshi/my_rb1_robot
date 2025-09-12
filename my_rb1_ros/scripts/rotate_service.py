@@ -26,26 +26,34 @@ def rotate_callback(request):
     global yaw
     rospy.loginfo("Service Requested")
     my_pub =  rospy.Publisher('/cmd_vel', Twist, queue_size=1)
-    rate = rospy.Rate(10)
+    rate = rospy.Rate(20)
 
     target_rad = math.radians(request.degrees)
     last_yaw = yaw
     rotated = 0.0
 
     move = Twist()
-    speed = 0.4
-    move.angular.z = speed if request.degrees > 0 else -speed
+    speed = 0.3
+    # propotional gain
+    k = 0.6 
     while not rospy.is_shutdown():
         delt = normalize_rad(yaw - last_yaw)
         rotated += delt
         last_yaw = yaw
-        if abs(rotated) >= abs(target_rad) - math.radians(1):
+        remain = abs(target_rad) - abs(rotated)
+        if remain <= math.radians(0.5):
             break
+        # propotional control, using k * ramain
+        speed = max(speed/30, min(speed, k * remain))
+        move.angular.z = speed if request.degrees > 0 else -speed
         my_pub.publish(move)
         rate.sleep()
 
+    # publish mutiple to stop drift
     move.angular.z = 0.0
-    my_pub.publish(move)
+    for _ in range(20):
+        my_pub.publish(move)
+        rate.sleep()
     response = RotateResponse()
     response.result = f"The robot rotated {request.degrees} degrees"
     rospy.loginfo("Service Completed")
