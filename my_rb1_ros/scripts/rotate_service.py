@@ -32,10 +32,9 @@ def rotate_callback(request):
     last_yaw = yaw
     rotated = 0.0
 
+    speed = 0.5
     move = Twist()
-    speed = 0.3
-    # propotional gain
-    k = 0.6 
+    move.angular.z = speed if request.degrees > 0 else -speed
     while not rospy.is_shutdown():
         delt = normalize_rad(yaw - last_yaw)
         rotated += delt
@@ -43,9 +42,6 @@ def rotate_callback(request):
         remain = abs(target_rad) - abs(rotated)
         if remain <= math.radians(0.5):
             break
-        # propotional control, using k * ramain
-        speed = max(speed/30, min(speed, k * remain))
-        move.angular.z = speed if request.degrees > 0 else -speed
         my_pub.publish(move)
         rate.sleep()
 
