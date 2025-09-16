@@ -26,7 +26,7 @@ def rotate_callback(request):
     global yaw
     rospy.loginfo("Service Requested")
     my_pub =  rospy.Publisher('/cmd_vel', Twist, queue_size=1)
-    rate = rospy.Rate(10)
+    rate = rospy.Rate(20)
 
     target_rad = math.radians(request.degrees)
     last_yaw = yaw
